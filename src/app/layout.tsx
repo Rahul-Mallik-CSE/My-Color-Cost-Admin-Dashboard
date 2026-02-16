@@ -1,6 +1,12 @@
+/** @format */
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Bounce, ToastContainer } from "react-toastify";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import DashboardSidebar from "@/components/CommonComponents/DashboardSidebar";
+import NavBar from "@/components/CommonComponents/NabBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +33,29 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
+
+        <SidebarProvider>
+          <DashboardSidebar />
+          <SidebarInset className="overflow-x-hidden">
+            <div className="min-h-screen w-full bg-[#fef1f5]  ">
+              <NavBar />
+              {children}
+            </div>
+          </SidebarInset>
+        </SidebarProvider>
       </body>
     </html>
   );

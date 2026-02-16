@@ -27,40 +27,29 @@ const NavBar = () => {
     router.push("/sign-in");
   };
   if (
-    pathname == "/" ||
-    pathname == "/sign-in" ||
-    pathname == "/sign-up" ||
-    pathname == "/create-new-pass" ||
-    pathname == "/reset-pass" ||
-    pathname == "/verify-email" ||
+    pathname == "/signin" ||
+    pathname == "/forgot-password" ||
+    pathname == "/reset-password" ||
     pathname == "/verify-otp"
   )
     return null;
+
   return (
-    <div className="w-full sticky top-0 z-9 px-2 sm:px-4">
-      <div className="max-w-[2500px] rounded-2xl mx-auto flex items-center justify-between bg-white border border-gray-200 px-3 sm:px-4 md:px-6 py-3">
+    <div className="w-full sticky top-0 z-9 ">
+      <div className="max-w-[2500px]  mx-auto flex items-center justify-between bg-white border border-gray-200 px-3 sm:px-4 md:px-6 py-3">
         <div className="flex gap-2 items-center">
           {/* mobile menu button */}
-          <div className=" rounded-sm  md:hidden">
+          <div className=" rounded-sm">
             <SidebarTrigger />
           </div>
           {/* Left side - Title */}
           <h1 className="text-sm sm:text-base md:text-lg lg:text-2xl 2xl:text-3xl font-bold text-gray-800 truncate">
-            Technician Dashboard
+            Admin Dashboard
           </h1>
         </div>
 
         {/* Right side - Notification, Profile */}
         <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
-          {/* Notification Bell */}
-          <button
-            onClick={() => router.push("/notifications")}
-            className="cursor-pointer relative p-1.5 sm:p-2 hover:bg-gray-100 rounded-full transition-colors flex-shrink-0"
-          >
-            <Bell className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-            <span className="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
-
           {/* Profile Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1 sm:gap-2 hover:bg-gray-50 rounded-lg px-1 sm:px-2 py-1 transition-colors flex-shrink-0">
@@ -75,7 +64,7 @@ const NavBar = () => {
               </div>
               <div className="text-left hidden sm:block">
                 <p className="text-sm font-medium text-gray-800">Moni Roy</p>
-                <p className="text-xs text-gray-500">Technician</p>
+                <p className="text-xs text-gray-500">Admin</p>
               </div>
               <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600 hidden sm:block" />
             </DropdownMenuTrigger>

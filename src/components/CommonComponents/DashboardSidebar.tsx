@@ -1,6 +1,7 @@
 /** @format */
 "use client";
 import React, { useState } from "react";
+import { motion } from "motion/react";
 import {
   Sidebar,
   SidebarContent,
@@ -26,6 +27,12 @@ import {
 } from "lucide-react";
 import { Button } from "../ui/button";
 import LogoutModal from "./LogOutModal";
+import { PiUsersThreeBold } from "react-icons/pi";
+import { AiOutlineCrown } from "react-icons/ai";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { GrUserSettings } from "react-icons/gr";
+import { BsBox2 } from "react-icons/bs";
+import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 
 export default function DashboardSidebar() {
   const { state } = useSidebar();
@@ -37,24 +44,39 @@ export default function DashboardSidebar() {
 
   const navItems = [
     {
-      href: "/overview",
+      href: "/",
       icon: LayoutGrid,
-      label: "Overview",
+      label: "Dashboard",
     },
     {
-      href: "/todays-jobs",
-      icon: Calendar,
-      label: "Today's Jobs",
+      href: "/users",
+      icon: PiUsersThreeBold,
+      label: "Users",
     },
     {
-      href: "/all-jobs",
-      icon: Briefcase,
-      label: "All Jobs",
+      href: "/subscribers",
+      icon: AiOutlineCrown,
+      label: "Subscribers",
     },
     {
-      href: "/notifications",
-      icon: Bell,
-      label: "Notifications",
+      href: "/retailers",
+      icon: MdOutlineShoppingCart,
+      label: "Retailers",
+    },
+    {
+      href: "/affiliate-users",
+      icon: GrUserSettings,
+      label: "Affiliate Users",
+    },
+    {
+      href: "/orders",
+      icon: BsBox2,
+      label: "Orders",
+    },
+    {
+      href: "/earnings",
+      icon: LiaMoneyBillWaveAltSolid,
+      label: "Earnings",
     },
     {
       href: "/settings",
@@ -72,12 +94,9 @@ export default function DashboardSidebar() {
   };
 
   if (
-    pathname == "/" ||
-    pathname == "/sign-in" ||
-    pathname == "/sign-up" ||
-    pathname == "/create-new-pass" ||
-    pathname == "/reset-pass" ||
-    pathname == "/verify-email" ||
+    pathname == "/signin" ||
+    pathname == "/forgot-password" ||
+    pathname == "/reset-password" ||
     pathname == "/verify-otp"
   )
     return null;
@@ -95,48 +114,8 @@ export default function DashboardSidebar() {
         collapsible="icon"
       >
         <SidebarContent className="bg-white rounded-tr-xl shadow-none">
-          <div
-            className={`mb-2 flex h-20 items-end justify-start rounded-md bg-[#9E2729] md:h-40 ${
-              isCollapsed
-                ? " flex items-center w-full justify-center mx-auto p-1 "
-                : "gap-2"
-            }`}
-          >
-            <Link href="/overview" className="flex gap-2 ">
-              {isCollapsed ? (
-                <h1 className="mt-2 mb-3 font-bold text-sm text-white rounded-full px-1 border-2 border-gray-200">
-                  B
-                </h1>
-              ) : (
-                // <div className="mt-2 flex items-center gap-2">
-                //   <Image src="/logo.png" alt="Logo" width={70} height={70} />
-                // </div>
-                <div className="pl-4 flex flex-col justify-center items-center">
-                  {/* Logo dots */}
-                  <div className="flex gap-0.5 sm:gap-1 justify-center mb-1 ">
-                    <div className="w-8 h-4 sm:w-6 sm:h-3 rounded-full bg-white"></div>
-                    <div className="w-4 h-4 sm:w-3 sm:h-3 rounded-full bg-white"></div>
-                    <div className="w-4 h-4 sm:w-3 sm:h-3 rounded-full bg-white"></div>
-                    <div className="w-4 h-4 sm:w-3 sm:h-3 rounded-full bg-white"></div>
-                  </div>
-
-                  {/* Beebeeh text */}
-                  <h1 className="text-xl  font-bold text-white mb-3 sm:mb-4">
-                    Beebeeh
-                  </h1>
-                </div>
-              )}
-            </Link>
-            {/* Toggle button for mobile */}
-
-            {/* Collapse button for desktop */}
-            <div
-              className={`absolute top-6 hidden md:block ${
-                isCollapsed ? "right-2" : "right-2"
-              }`}
-            >
-              <SidebarTrigger className="text-white hover:bg-transparent hover:text-white" />
-            </div>
+          <div className="flex items-center justify-center my-4 px-2">
+            <Logo open={!isCollapsed} />
           </div>
           <SidebarMenu
             className={
@@ -170,7 +149,7 @@ export default function DashboardSidebar() {
                 "flex text-black grow items-center justify-center bg-gray-50 font-medium hover:bg-[#F5E9EA] hover:text-[#9E2729]",
                 isCollapsed
                   ? "rounded-md w-8 h-8 p-0"
-                  : "h-10 md:h-12 w-full gap-2 rounded-md p-3"
+                  : "h-10 md:h-12 w-full gap-2 rounded-md p-3",
               )}
               onClick={() => setIsLogoutModalOpen(true)}
             >
@@ -219,10 +198,10 @@ function NavItem({
           className={cn(
             collapsed
               ? "flex items-center justify-center px-2 py-3 transition-colors rounded-full w-12 h-12 mx-auto"
-              : "flex items-center gap-3 h-10 md:h-12 rounded-md p-3 transition-colors text-sm",
+              : " flex items-center gap-3 h-10 md:h-12 rounded-md p-3 transition-colors text-sm",
             active
-              ? "bg-[#9E2729]  text-white hover:bg-[#9E2729]! hover:text-white! font-medium"
-              : "text-gray-700  hover:bg-[#F5E9EA]! hover:text-[#9E2729]!  font-medium"
+              ? "bg-linear-to-b from-[#e993fd] to-[#ff6c95]  text-white hover:bg-[#ff6c95] hover:text-white! font-medium"
+              : "text-gray-700  hover:bg-[#F5E9EA]! hover:text-[#ff6c95]!  font-medium",
           )}
         >
           <Icon size={collapsed ? 20 : 18} />
@@ -233,3 +212,21 @@ function NavItem({
   );
 }
 // ...existing code...
+
+const Logo = ({ open }: { open: boolean }) => {
+  return (
+    <div
+      className="font-normal flex items-center text-sm relative z-20 w-full justify-center"
+      suppressHydrationWarning
+    >
+      <Image
+        className="w-full h-full object-contain"
+        alt="Logo"
+        src="/color-cost-logo.png"
+        width={open ? 900 : 30}
+        height={open ? 900 : 40}
+        priority
+      />
+    </div>
+  );
+};
