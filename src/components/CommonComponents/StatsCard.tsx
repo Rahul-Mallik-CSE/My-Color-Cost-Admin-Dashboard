@@ -3,7 +3,6 @@
 // components/Dashboard/Shared/StatsCard.tsx
 import { cn } from "@/lib/utils";
 import type { StatsCardProps } from "@/types/stats";
-import { TrendingUp, TrendingDown } from "lucide-react";
 import Image from "next/image";
 
 export function StatsCard({
@@ -13,9 +12,6 @@ export function StatsCard({
   imageIcon,
   iconColor,
   iconBgColor,
-  isUp = true,
-  subtitle,
-  percentage,
   className,
 }: StatsCardProps) {
   return (

@@ -237,7 +237,7 @@ const CustomTable = <T extends Record<string, any>>({
                   className={cn(
                     "cursor-pointer text-xs sm:text-sm h-8 sm:h-10 w-8 sm:w-10",
                     currentPage === page &&
-                      "bg-red-800 text-white hover:bg-red-700 hover:text-white",
+                      "bg-pink-400 text-white hover:bg-pink-500 hover:text-white",
                   )}
                 >
                   {page}
@@ -250,7 +250,7 @@ const CustomTable = <T extends Record<string, any>>({
           <PaginationItem className="xs:hidden">
             <PaginationLink
               isActive={true}
-              className="cursor-default bg-red-800 text-white h-8 w-8 text-xs"
+              className="cursor-default bg-pink-400 text-white h-8 w-8 text-xs"
             >
               {currentPage}
             </PaginationLink>
