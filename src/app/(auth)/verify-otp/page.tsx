@@ -1,3 +1,5 @@
+/** @format */
+
 import { Suspense } from "react";
 import VerifyOtp from "../../../components/AuthComponents/VerifyOtp";
 

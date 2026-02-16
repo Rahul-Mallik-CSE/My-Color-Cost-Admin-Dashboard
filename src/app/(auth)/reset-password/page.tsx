@@ -1,3 +1,5 @@
+/** @format */
+
 import ResetPassword from "../../../components/AuthComponents/ResetPassword";
 export default function ResetPasswordPage() {
   return (
