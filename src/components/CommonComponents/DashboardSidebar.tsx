@@ -73,11 +73,11 @@ export default function DashboardSidebar() {
       icon: BsBox2,
       label: "Orders",
     },
-    {
-      href: "/earnings",
-      icon: LiaMoneyBillWaveAltSolid,
-      label: "Earnings",
-    },
+    // {
+    //   href: "/earnings",
+    //   icon: LiaMoneyBillWaveAltSolid,
+    //   label: "Earnings",
+    // },
     {
       href: "/settings",
       icon: Settings,
@@ -146,7 +146,7 @@ export default function DashboardSidebar() {
               variant="default"
               size="sm"
               className={cn(
-                "flex text-black grow items-center justify-center bg-gray-50 font-medium hover:bg-[#F5E9EA] hover:text-[#9E2729]",
+                "flex text-black grow items-center justify-center bg-linear-to-b from-[#e993fd] to-[#ff6c95]   hover:bg-[#ff6c95]",
                 isCollapsed
                   ? "rounded-md w-8 h-8 p-0"
                   : "h-10 md:h-12 w-full gap-2 rounded-md p-3",
