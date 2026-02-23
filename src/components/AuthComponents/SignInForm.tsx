@@ -112,7 +112,7 @@ export const SignInForm = () => {
                   </div>
                   <Link
                     href="/forgot-password"
-                    className="text-base font-semibold text-primary hover:text-primary/80 hover:underline transition-colors"
+                    className="text-base font-semibold text-[#FD7AA1] hover:text-[#FD7AA1]/80 hover:underline transition-colors"
                   >
                     Forget Password?
                   </Link>
@@ -121,23 +121,10 @@ export const SignInForm = () => {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-13 bg-primary hover:bg-primary/90 text-white text-lg font-bold rounded-xl shadow-none mt-2"
+                  className="w-full h-13 bg-[#FD7AA1] hover:bg-[#FD7AA1]/80 text-white text-lg font-bold rounded-xl shadow-none mt-2"
                 >
                   Login
                 </Button>
-
-                {/* Sign Up Link */}
-                <div className="flex items-center justify-center gap-2 mt-2">
-                  <span className="text-base font-normal text-foreground">
-                    Don&apos;t have account?
-                  </span>
-                  <Link
-                    href="/signup"
-                    className="text-base font-semibold text-[#fb4f79] hover:text-[#fb4f79]/80 hover:underline transition-colors"
-                  >
-                    Sign Up Now
-                  </Link>
-                </div>
               </div>
             </div>
           </CardContent>

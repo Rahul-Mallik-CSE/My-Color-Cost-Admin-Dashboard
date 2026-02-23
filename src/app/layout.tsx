@@ -7,6 +7,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import DashboardSidebar from "@/components/CommonComponents/DashboardSidebar";
 import NavBar from "@/components/CommonComponents/NabBar";
+import Providers from "@/redux/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,16 +47,17 @@ export default function RootLayout({
           theme="light"
           transition={Bounce}
         />
-
-        <SidebarProvider>
-          <DashboardSidebar />
-          <SidebarInset className="overflow-x-hidden">
-            <div className="min-h-screen w-full bg-[#fef1f5]  ">
-              <NavBar />
-              {children}
-            </div>
-          </SidebarInset>
-        </SidebarProvider>
+        <Providers>
+          <SidebarProvider>
+            <DashboardSidebar />
+            <SidebarInset className="overflow-x-hidden">
+              <div className="min-h-screen w-full bg-[#fef1f5]  ">
+                <NavBar />
+                {children}
+              </div>
+            </SidebarInset>
+          </SidebarProvider>
+        </Providers>
       </body>
     </html>
   );

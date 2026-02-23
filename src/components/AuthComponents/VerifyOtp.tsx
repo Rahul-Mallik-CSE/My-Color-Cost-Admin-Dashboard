@@ -73,7 +73,7 @@ const VerifyOtp = () => {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-13 bg-primary hover:bg-primary/90 text-white text-lg font-bold rounded-xl shadow-none"
+                  className="w-full h-13 bg-[#FD7AA1] hover:bg-[#FD7AA1]/80 text-white text-lg font-bold rounded-xl shadow-none"
                 >
                   Verify
                 </Button>
@@ -85,7 +85,7 @@ const VerifyOtp = () => {
                   </span>
                   <button
                     type="button"
-                    className="text-base font-semibold text-primary hover:text-primary/80 hover:underline transition-colors focus:outline-none"
+                    className="text-base font-semibold text-[#FD7AA1] hover:text-[#FD7AA1]/80 hover:underline transition-colors focus:outline-none"
                   >
                     Resend
                   </button>
