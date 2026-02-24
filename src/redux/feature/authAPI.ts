@@ -1,60 +1,64 @@
-import { send } from "process";
+/** @format */
+
 import baseApi from "../api/baseAPI";
 
 const authAPI = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    login: builder.mutation<any, { email: string; password: string }>({
+      query: (data) => ({
+        url: `/auth/login/`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    forgetPassword: builder.mutation<any, { email: string }>({
+      query: (data) => ({
+        url: `/auth/forgot-password/`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+    resendOtp: builder.mutation<any, { email: string }>({
+      query: (data) => ({
+        url: `/auth/resend-otp/`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+    verifyOtp: builder.mutation<any, { email: string; otp_code: string }>({
+      query: (data) => ({
+        url: `/auth/verify-otp/`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+    resetPassword: builder.mutation<any, { new_password: string }>({
+      query: (data) => ({
+        url: `/auth/reset-password/`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
     updatePassword: builder.mutation({
       query: (data) => ({
-        url: `auth/change-password`,
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body: data,
-      }),
-      invalidatesTags: ["Auth"],
-    }),
-    forgetPassword: builder.mutation({
-      query: (data) => ({
-        url: `/auth/forgot-password`,
+        url: `/auth/change-password/`,
         method: "POST",
         body: data,
       }),
       invalidatesTags: ["Auth"],
-    }),
-    verifyEmail: builder.mutation({
-      query: (data) => ({
-        url: `/auth/verify-email`,
-        method: "POST",
-        body: data,
-      }),
-      invalidatesTags: ["Auth"],
-    }),
-    resetPassword: builder.mutation({
-      query: (data) => ({
-        url: `/auth/reset-password`,
-        method: "POST",
-        body: data,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }),
-      invalidatesTags: ["Auth"],
-    }),
-    login: builder.mutation<any, any>({
-      query: (data) => ({
-        url: `/auth/login`,
-        method: "POST",
-        body: data,
-      }),
     }),
   }),
 });
 
 export const {
-  useUpdatePasswordMutation,
-  useResetPasswordMutation,
-  useVerifyEmailMutation,
-  useForgetPasswordMutation,
   useLoginMutation,
+  useForgetPasswordMutation,
+  useResendOtpMutation,
+  useVerifyOtpMutation,
+  useResetPasswordMutation,
+  useUpdatePasswordMutation,
 } = authAPI;

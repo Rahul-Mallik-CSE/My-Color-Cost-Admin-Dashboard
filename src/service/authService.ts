@@ -4,18 +4,24 @@
 
 import { cookies } from "next/headers";
 
-// Define a function to save the token in cookies
+// Save access token in cookies
 export const saveTokens = async (token: string): Promise<void> => {
-  (await cookies()).set("token", token);
+  (await cookies()).set("accessToken", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+  });
 };
 
-// Define a function to get the current user (token) from cookies
+// Get the access token from cookies
 export const getCurrentUser = async (): Promise<string | undefined> => {
-  const token = (await cookies()).get("token")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
   return token;
 };
 
-// Define a function to logout by deleting the token from cookies
+// Logout by deleting all auth cookies
 export const logout = async (): Promise<void> => {
-  (await cookies()).delete("token");
+  (await cookies()).delete("accessToken");
 };

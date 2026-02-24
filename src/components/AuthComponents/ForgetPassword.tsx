@@ -2,29 +2,55 @@
 
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { useForgetPasswordMutation } from "@/redux/feature/authAPI";
 
 const ForgetPassword = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [forgetPassword, { isLoading }] = useForgetPasswordMutation();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email) {
+      toast.error("Please enter your email");
+      return;
+    }
+
+    try {
+      const res = await forgetPassword({ email }).unwrap();
+
+      if (res?.success) {
+        // Store email for OTP verification
+        localStorage.setItem("email", email);
+        toast.success(res?.message || "OTP sent to your email!");
+        router.push("/verify-otp");
+      } else {
+        toast.error(res?.message || "Failed to send OTP");
+      }
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string }; message?: string };
+      const message =
+        err?.data?.message ||
+        err?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(message);
+    }
+  };
+
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-linear-to-b from-[#ff6c95] to-[#e993fd]  ">
-      {/* Background Shape */}
-      {/* <div className="absolute inset-0 w-full h-full z-0">
-        <Image
-          src="/icons/shape.png"
-          alt="Background Shape"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div> */}
-
       {/* Form Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -40,45 +66,54 @@ const ForgetPassword = () => {
           }}
         >
           <CardContent className="p-8 md:p-[40px]">
-            <div className="flex flex-col items-center gap-4">
-              <Image
-                src="/color-cost-logo.png"
-                alt="Register Icon"
-                width={160}
-                height={120}
-                className=""
-                priority
-              />
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground text-center">
-                Forgot Password
-              </h1>
+            <form onSubmit={handleSubmit}>
+              <div className="flex flex-col items-center gap-4">
+                <Image
+                  src="/color-cost-logo.png"
+                  alt="Register Icon"
+                  width={160}
+                  height={120}
+                  className=""
+                  priority
+                />
+                <h1 className="text-3xl md:text-4xl font-bold text-foreground text-center">
+                  Forgot Password
+                </h1>
 
-              <div className="w-full flex flex-col gap-6">
-                {/* Email Field */}
-                <div className="space-y-3">
-                  <Label
-                    htmlFor="email"
-                    className="text-xl font-normal text-foreground"
+                <div className="w-full flex flex-col gap-6">
+                  {/* Email Field */}
+                  <div className="space-y-3">
+                    <Label
+                      htmlFor="email"
+                      className="text-xl font-normal text-foreground"
+                    >
+                      Email
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Enter your email..."
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="h-14 rounded-xl text-base text-foreground border-[#3B3B3B]"
+                      disabled={isLoading}
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full h-13 bg-[#FD7AA1] hover:bg-[#FD7AA1]/80 text-white text-lg font-bold rounded-xl shadow-none"
                   >
-                    Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email..."
-                    className="h-14 rounded-xl text-base text-foreground border-[#3B3B3B]"
-                  />
+                    {isLoading ? (
+                      <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                    ) : null}
+                    {isLoading ? "Sending..." : "Send OTP"}
+                  </Button>
                 </div>
-
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  className="w-full h-13 bg-primary hover:bg-primary/90 text-white text-lg font-bold rounded-xl shadow-none"
-                >
-                  Send OTP
-                </Button>
               </div>
-            </div>
+            </form>
           </CardContent>
         </Card>
       </motion.div>

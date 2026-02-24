@@ -2,44 +2,47 @@
 
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getCurrentUser } from "./service/authService";
-import { jwtDecode } from "jwt-decode";
 
+const AUTH_PAGES = [
+  "/signin",
+  "/forgot-password",
+  "/verify-otp",
+  "/reset-password",
+];
 const SIGN_IN_URL = "/signin";
 
 export async function middleware(request: NextRequest) {
-  const token = await getCurrentUser();
+  const { pathname } = request.nextUrl;
+  const token = request.cookies.get("accessToken")?.value;
 
-  if (!token) {
+  const isAuthPage = AUTH_PAGES.some((page) => pathname.startsWith(page));
+
+  // If user is on an auth page and has a token, redirect to dashboard
+  if (isAuthPage && token) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  // If user is on a protected page and has no token, redirect to signin
+  if (!isAuthPage && !token) {
     return NextResponse.redirect(new URL(SIGN_IN_URL, request.url));
   }
 
-  try {
-    const decoded: any = jwtDecode(token);
-
-    if (decoded?.role !== "ADMIN") {
-      return NextResponse.redirect(new URL(SIGN_IN_URL, request.url));
-    }
-
-    return NextResponse.next();
-  } catch (error) {
-    console.error("Invalid token:", error);
-    return NextResponse.redirect(new URL(SIGN_IN_URL, request.url));
-  }
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
     "/",
     "/users",
-    "/bookingList",
-    "/uploadProduct",
-    "/skinCondition",
-    "/setting",
-    "/court",
-    "/cart",
-    "/checkout",
-    "/notifications",
-    "/user-questions",
+    "/orders",
+    "/earnings",
+    "/retailers",
+    "/subscribers",
+    "/affiliate-users",
+    "/settings",
+    "/signin",
+    "/forgot-password",
+    "/verify-otp",
+    "/reset-password",
   ],
 };

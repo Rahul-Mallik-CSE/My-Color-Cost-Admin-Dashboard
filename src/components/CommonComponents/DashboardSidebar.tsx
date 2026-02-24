@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { Button } from "../ui/button";
 import LogoutModal from "./LogOutModal";
+import { logout } from "@/service/authService";
 import { PiUsersThreeBold } from "react-icons/pi";
 import { AiOutlineCrown } from "react-icons/ai";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -85,12 +86,20 @@ export default function DashboardSidebar() {
     },
   ];
 
-  const handleLogout = () => {
-    router.push("/sign-in");
-    // Add your logout logic here (e.g., clear tokens, redirect, etc.)
-    console.log("Logging out...");
+  const handleLogout = async () => {
+    // Clear server-side cookie
+    await logout();
+
+    // Clear client-side storage
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+    localStorage.removeItem("email");
+    document.cookie =
+      "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
     setIsLogoutModalOpen(false);
-    // Example: router.push('/login');
+    router.push("/signin");
   };
 
   if (
