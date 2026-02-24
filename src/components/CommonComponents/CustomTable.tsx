@@ -74,6 +74,7 @@ const CustomTable = <T extends Record<string, any>>({
         return "bg-cyan-100 text-cyan-700";
       case "complete":
       case "completed":
+      case "approved":
         return "bg-green-100 text-green-700";
       case "failed":
         return "bg-red-100 text-red-700";
