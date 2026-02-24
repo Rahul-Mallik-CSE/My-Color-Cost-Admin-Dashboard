@@ -1,11 +1,20 @@
 /** @format */
 
 export interface User {
-  userId: string;
+  id: string;
   name: string;
   email: string;
-  contactNumber: string;
-  location: string;
-  staff: number;
-  action?: string;
+  contact_number: string;
+  role: string | null;
+  staff_count: number;
+  created_at: string;
+}
+
+export interface UsersApiResponse {
+  success: boolean;
+  message: string;
+  data: {
+    users: User[];
+    total_count: number;
+  };
 }

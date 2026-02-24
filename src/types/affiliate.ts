@@ -1,11 +1,21 @@
 /** @format */
 
 export interface AffiliateUser {
-  userId: string;
+  id: string;
   name: string;
   email: string;
-  joinUser: number;
-  totalEarn: string;
-  withdraw: string;
-  pendingBalance: string;
+  referral_code: string;
+  total_referrals: number;
+  total_earned: string;
+  withdrawn_amount: string;
+  pending_balance: string;
+}
+
+export interface AffiliatesApiResponse {
+  success: boolean;
+  message: string;
+  data: {
+    affiliates: AffiliateUser[];
+    total_count: number;
+  };
 }

@@ -73,7 +73,10 @@ const CustomTable = <T extends Record<string, any>>({
       case "in progress":
         return "bg-cyan-100 text-cyan-700";
       case "complete":
-        return "bg-blue-100 text-blue-700";
+      case "completed":
+        return "bg-green-100 text-green-700";
+      case "failed":
+        return "bg-red-100 text-red-700";
       default:
         return "bg-gray-100 text-gray-700";
     }
@@ -211,64 +214,66 @@ const CustomTable = <T extends Record<string, any>>({
         </div>
       </div>
 
-      {/* Pagination */}
-      <Pagination>
-        <PaginationContent className="flex-wrap gap-1">
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => handlePageChange(currentPage - 1)}
-              className={cn(
-                "text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-4",
-                currentPage === 1
-                  ? "pointer-events-none opacity-50"
-                  : "cursor-pointer",
-              )}
-            />
-          </PaginationItem>
-
-          {getPageNumbers().map((page, index) => (
-            <PaginationItem key={index} className="hidden xs:inline-flex">
-              {page === "..." ? (
-                <PaginationEllipsis className="h-8 sm:h-10" />
-              ) : (
-                <PaginationLink
-                  onClick={() => handlePageChange(page as number)}
-                  isActive={currentPage === page}
-                  className={cn(
-                    "cursor-pointer text-xs sm:text-sm h-8 sm:h-10 w-8 sm:w-10",
-                    currentPage === page &&
-                      "bg-pink-400 text-white hover:bg-pink-500 hover:text-white",
-                  )}
-                >
-                  {page}
-                </PaginationLink>
-              )}
+      {/* Pagination - only show when there is more than 1 page */}
+      {totalPages > 1 && (
+        <Pagination>
+          <PaginationContent className="flex-wrap gap-1">
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(currentPage - 1)}
+                className={cn(
+                  "text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-4",
+                  currentPage === 1
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer",
+                )}
+              />
             </PaginationItem>
-          ))}
 
-          {/* Mobile: Show only current page */}
-          <PaginationItem className="xs:hidden">
-            <PaginationLink
-              isActive={true}
-              className="cursor-default bg-pink-400 text-white h-8 w-8 text-xs"
-            >
-              {currentPage}
-            </PaginationLink>
-          </PaginationItem>
+            {getPageNumbers().map((page, index) => (
+              <PaginationItem key={index} className="hidden xs:inline-flex">
+                {page === "..." ? (
+                  <PaginationEllipsis className="h-8 sm:h-10" />
+                ) : (
+                  <PaginationLink
+                    onClick={() => handlePageChange(page as number)}
+                    isActive={currentPage === page}
+                    className={cn(
+                      "cursor-pointer text-xs sm:text-sm h-8 sm:h-10 w-8 sm:w-10",
+                      currentPage === page &&
+                        "bg-pink-400 text-white hover:bg-pink-500 hover:text-white",
+                    )}
+                  >
+                    {page}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+            ))}
 
-          <PaginationItem>
-            <PaginationNext
-              onClick={() => handlePageChange(currentPage + 1)}
-              className={cn(
-                "text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-4",
-                currentPage === totalPages
-                  ? "pointer-events-none opacity-50"
-                  : "cursor-pointer",
-              )}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+            {/* Mobile: Show only current page */}
+            <PaginationItem className="xs:hidden">
+              <PaginationLink
+                isActive={true}
+                className="cursor-default bg-pink-400 text-white h-8 w-8 text-xs"
+              >
+                {currentPage}
+              </PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePageChange(currentPage + 1)}
+                className={cn(
+                  "text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-4",
+                  currentPage === totalPages
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer",
+                )}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
     </div>
   );
 };
