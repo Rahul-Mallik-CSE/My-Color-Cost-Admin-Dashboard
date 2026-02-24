@@ -10,6 +10,7 @@ import {
   useGetDashboardStatsQuery,
   useGetOrdersQuery,
 } from "@/redux/feature/dashboardAPI";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 
 export default function Home() {
   const { data: statsResponse } = useGetDashboardStatsQuery();
@@ -29,21 +30,21 @@ export default function Home() {
       iconBgColor: "#FFF4ED",
     },
     {
-      title: "Total User",
+      title: "Total Users",
       value: stats ? stats.total_users.toLocaleString() : "-",
-      imageIcon: "/icons/users.svg",
+      icon: AiOutlineUsergroupAdd,
       iconColor: "#00C853",
       iconBgColor: "#E8F5E9",
     },
     {
-      title: "Total Subscriber",
+      title: "Total Subscribers",
       value: stats ? stats.total_subscribers.toLocaleString() : "-",
       icon: UserCheck,
       iconColor: "#FF6B2C",
       iconBgColor: "#FFF4ED",
     },
     {
-      title: "Total Retailer",
+      title: "Total Retailers",
       value: stats ? stats.total_retailers.toLocaleString() : "-",
       icon: Store,
       iconColor: "#FF6B2C",
