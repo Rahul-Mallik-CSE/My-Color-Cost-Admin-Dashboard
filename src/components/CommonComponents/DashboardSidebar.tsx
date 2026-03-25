@@ -1,7 +1,6 @@
 /** @format */
 "use client";
 import React, { useState } from "react";
-import { motion } from "motion/react";
 import {
   Sidebar,
   SidebarContent,
@@ -9,7 +8,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
   useSidebar,
 } from "../ui/sidebar";
 
@@ -17,23 +15,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  LayoutGrid,
-  Briefcase,
-  Calendar,
-  Bell,
-  Settings,
-  LogOut,
-} from "lucide-react";
+import { LayoutGrid, Settings, LogOut } from "lucide-react";
 import { Button } from "../ui/button";
 import LogoutModal from "./LogOutModal";
 import { logout } from "@/service/authService";
 import { PiUsersThreeBold } from "react-icons/pi";
 import { AiOutlineCrown } from "react-icons/ai";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import {
+  MdOutlineShoppingCart,
+  MdProductionQuantityLimits,
+} from "react-icons/md";
 import { GrUserSettings } from "react-icons/gr";
 import { BsBox2 } from "react-icons/bs";
-import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 
 export default function DashboardSidebar() {
   const { state } = useSidebar();
@@ -74,11 +67,11 @@ export default function DashboardSidebar() {
       icon: BsBox2,
       label: "Orders",
     },
-    // {
-    //   href: "/earnings",
-    //   icon: LiaMoneyBillWaveAltSolid,
-    //   label: "Earnings",
-    // },
+    {
+      href: "/missing-products",
+      icon: MdProductionQuantityLimits,
+      label: "Missing Products",
+    },
     {
       href: "/settings",
       icon: Settings,
