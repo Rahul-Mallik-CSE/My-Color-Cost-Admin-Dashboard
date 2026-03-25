@@ -4,7 +4,7 @@
 
 import React, { useState } from "react";
 import CustomTable from "@/components/CommonComponents/CustomTable";
-import { Retailer, RetailerStatus } from "@/types/retailer";
+import { Retailer } from "@/types/retailer";
 import {
   useGetRetailersQuery,
   useApproveRetailerMutation,
@@ -17,20 +17,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-const tabs: { label: string; status: RetailerStatus }[] = [
-  { label: "All", status: "all" },
-  { label: "Approved", status: "approved" },
-  { label: "Pending", status: "pending" },
-];
-
 const RetailersPage = () => {
-  const [activeStatus, setActiveStatus] = useState<RetailerStatus>("all");
   const [selectedRetailer, setSelectedRetailer] = useState<Retailer | null>(
     null,
   );
 
-  const { data: retailersResponse, isLoading } =
-    useGetRetailersQuery(activeStatus);
+  const { data: retailersResponse, isLoading } = useGetRetailersQuery("all");
   const [approveRetailer, { isLoading: isApproving }] =
     useApproveRetailerMutation();
 
@@ -74,24 +66,6 @@ const RetailersPage = () => {
     <div className="min-h-screen p-4 sm:p-6 lg:p-8">
       <div className="max-w-625 mx-auto">
         <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm">
-          {/* Tabs */}
-          <div className="flex flex-wrap gap-2 mb-4 border-b pb-3">
-            {tabs.map((tab) => (
-              <button
-                key={tab.status}
-                onClick={() => setActiveStatus(tab.status)}
-                className={cn(
-                  "px-4 py-1.5 rounded-full text-sm font-medium transition-colors",
-                  activeStatus === tab.status
-                    ? "bg-pink-400 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200",
-                )}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
           {isLoading ? (
             <div className="text-center py-10 text-gray-500">
               Loading retailers...
