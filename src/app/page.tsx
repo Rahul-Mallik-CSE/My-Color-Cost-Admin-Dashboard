@@ -5,7 +5,13 @@
 import { StatsCard } from "@/components/CommonComponents/StatsCard";
 import CustomTable from "@/components/CommonComponents/CustomTable";
 import { Order } from "@/types/order";
-import { DollarSign, UserCheck, Store } from "lucide-react";
+import {
+  DollarSign,
+  UserCheck,
+  Store,
+  TrendingUp,
+  ShoppingCart,
+} from "lucide-react";
 import {
   useGetDashboardStatsQuery,
   useGetOrdersQuery,
@@ -28,6 +34,24 @@ export default function Home() {
       icon: DollarSign,
       iconColor: "#FF6B2C",
       iconBgColor: "#FFF4ED",
+    },
+    {
+      title: "Subscription Revenue",
+      value: stats
+        ? `$${parseFloat(stats.subscription_revenue).toLocaleString()}`
+        : "-",
+      icon: TrendingUp,
+      iconColor: "#6366F1",
+      iconBgColor: "#E0E7FF",
+    },
+    {
+      title: "Shop Revenue",
+      value: stats
+        ? `$${parseFloat(stats.shop_revenue).toLocaleString()}`
+        : "-",
+      icon: ShoppingCart,
+      iconColor: "#EC4899",
+      iconBgColor: "#FCE7F3",
     },
     {
       title: "Total Users",
@@ -74,7 +98,7 @@ export default function Home() {
     <div className="min-h-screen p-4 sm:p-6 lg:p-8">
       <div className="max-w-625 mx-auto space-y-6">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-4 sm:gap-6">
           {statsCards.map((stat, index) => (
             <StatsCard key={index} {...stat} />
           ))}

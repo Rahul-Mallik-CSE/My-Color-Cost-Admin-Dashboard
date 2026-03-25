@@ -6,6 +6,8 @@ import type { OrdersApiResponse } from "@/types/order";
 interface DashboardStats {
   total_revenue: string;
   total_users: number;
+  subscription_revenue: string;
+  shop_revenue: string;
   total_subscribers: number;
   total_retailers: number;
 }

@@ -51,7 +51,7 @@ const NavBar = () => {
         {/* Right side - Notification, Profile */}
         <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
           {/* Profile Dropdown */}
-          <DropdownMenu>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1 sm:gap-2 hover:bg-gray-50 rounded-lg px-1 sm:px-2 py-1 transition-colors flex-shrink-0">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-red-800 flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Image
@@ -85,7 +85,7 @@ const NavBar = () => {
                 <span className="text-base">Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
         </div>
       </div>
 
